@@ -9,11 +9,6 @@
 
 #include "ImageProcessor.hpp"
 
-int ImageProcessor::frame_num = 0;
-double ImageProcessor::exec_time = 0;
-std::shared_ptr<Mat> ImageProcessor::current_frame = std::shared_ptr<Mat>();
-std::vector<Mat> ImageProcessor::last_frames = std::vector<Mat>();
-
 void ImageProcessor::process(Mat &a, void* data)
 {
   process_implementation(a, data);

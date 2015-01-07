@@ -26,7 +26,7 @@ private:
 	template <typename T>
 	bool compare(const T& a, const T& b);
 
-	int m_channels;
+	// int m_channels;
 };
 
 template <typename Tl, typename Ta>

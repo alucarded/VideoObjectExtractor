@@ -1,6 +1,6 @@
 // taken from OpenCV library and modified
 
-
+#include "FrameGrabber.hpp"
 #include "GaussianMixture.hpp"
 
 /*
@@ -366,7 +366,7 @@ void GaussianMixture::process_implementation(Mat &a, void* data)
 	Mat fg;
 	// Gaussian blur enlarges the region, careful
 	// GaussianBlur( a, a, Size( 5, 5 ), 0, 0 );
-	if (frame_num < history)
+	if (FrameGrabber::frame_num < history)
 		apply(a, fg);
 	else
 		apply(a, fg, m_final_lr);

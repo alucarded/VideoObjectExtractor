@@ -5,7 +5,7 @@
  *      Author: alucard
  */
 
-#include "ImageProcessor.hpp"
+#include "FrameGrabber.hpp"
 #include "Utility.hpp"
 
 Utility::Utility() {
@@ -19,21 +19,18 @@ Utility::~Utility() {
 
 bool Utility::actionSwitch(const Mat& img, const std::string& aname, char key)
 {
-	std::string fn, fname;
-	struct stat st = {0};
-	int no = 0;
 	switch (static_cast<char>(waitKey(1)))
 	{
 	case 's':
-		captureFrame(img, aname);
+		return captureFrame(img, aname);
 		break;
 	case 27:
-		cout << "esc key is pressed by user" << endl;
+		std::cout << "esc key is pressed by user" << std::endl;
 		return false;
 	default:
+		return true;
 		break;
 	}
-	return true;
 }
 
 bool Utility::captureFrame(const Mat& img, const std::string& aname)
@@ -45,13 +42,13 @@ bool Utility::captureFrame(const Mat& img, const std::string& aname)
 	if (stat(SCREENSHOTS_DIR, &st) == -1) {
 		mkdir(SCREENSHOTS_DIR, 0700);
 	}
-	fn = SCREENSHOTS_DIR + aname + "_" + std::to_string(ImageProcessor::frame_num) + ".jpg";
+	fn = SCREENSHOTS_DIR + aname + "_" + std::to_string(FrameGrabber::frame_num) + ".jpg";
 	while (stat(fn.c_str(), &st) != -1) {
-		fn = SCREENSHOTS_DIR + aname + "_" + std::to_string(ImageProcessor::frame_num) + "_" + std::to_string(n) + ".jpg";
+		fn = SCREENSHOTS_DIR + aname + "_" + std::to_string(FrameGrabber::frame_num) + "_" + std::to_string(n) + ".jpg";
 		n++;
 	}
 	imwrite(fn, img);
 	fn = SCREENSHOTS_DIR + aname + "_input.jpg";
-	imwrite(fn, *ImageProcessor::current_frame);
+	ret = imwrite(fn, FrameGrabber::current_frame);
 	return ret;
 }

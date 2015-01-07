@@ -5,17 +5,19 @@
  *      Author: alucarded
  */
 
+#include "FrameGrabber.hpp"
 #include "GrabCutExtracting.hpp"
 #include "MorphologicalProcessing.hpp"
 #include "RegionSizeFiltering.hpp"
 
-GrabCutExtracting::GrabCutExtracting() : m_kernel_size(15) {
-	// TODO Auto-generated constructor stub
+GrabCutExtracting::GrabCutExtracting() : m_kernel_size(15)
+{
 
 }
 
-GrabCutExtracting::~GrabCutExtracting() {
-	// TODO Auto-generated destructor stub
+GrabCutExtracting::~GrabCutExtracting()
+{
+
 }
 
 void GrabCutExtracting::process_implementation(Mat &a, void* data)
@@ -57,16 +59,16 @@ void GrabCutExtracting::process_implementation(Mat &a, void* data)
 		}
 
 	if (bgd < 1000 || fgd < 1000) {
-		current_frame->copyTo(a);
+		FrameGrabber::current_frame.copyTo(a);
 		return;
 	}
 
 	// execute grabcut
-	grabCut(*current_frame, gc_mask, dummy_rect, bgd_model, fgd_model, 1, GC_INIT_WITH_MASK);
+	grabCut(FrameGrabber::current_frame, gc_mask, dummy_rect, bgd_model, fgd_model, 1, GC_INIT_WITH_MASK);
 
 	// show cut image
 	get_bin_mask(gc_mask, bmask);
-	current_frame->copyTo(a, bmask);
+	FrameGrabber::current_frame.copyTo(a, bmask);
 	/*
 	for (i = 1; i < a.rows; i++)
 		for (j = 1; j < a.cols; j++) {

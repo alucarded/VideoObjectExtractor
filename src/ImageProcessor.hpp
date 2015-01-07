@@ -27,11 +27,6 @@ public:
   void set_next_processor(ImageProcessor *p);
   void set_next_processor(std::shared_ptr<ImageProcessor> p);
 
-  static int frame_num;
-  static double exec_time;
-  static std::shared_ptr<Mat> current_frame;
-  static std::vector<Mat> last_frames;
-
 protected:
   virtual void process_implementation(Mat &a, void* data) = 0;
   std::string m_name;

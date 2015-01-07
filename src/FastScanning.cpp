@@ -6,6 +6,7 @@
  */
 
 #include "FastScanning.hpp"
+#include "FrameGrabber.hpp"
 
 #define MAX_DISTANCE 195075.0f // 3*255*255
 
@@ -24,14 +25,14 @@ FastScanning::~FastScanning()
 
 void FastScanning::initialize(VideoCapture& cap)
 {
-	bool ret = cap.read(*ImageProcessor::current_frame);
+	bool ret = cap.read(FrameGrabber::current_frame);
 	if (!ret) {
 		printf("Your camera is not responding :(");
 		return;
 	}
 	// we prepare memory for pessimistic case - every pixel is a region (not memory efficient)
 	// need to change that - make some restrictions for minimum number of pixels in a region
-	int pxs = current_frame->rows*current_frame->cols;
+	int pxs = FrameGrabber::current_frame.rows*FrameGrabber::current_frame.cols;
 	m_means.resize(pxs);
 	m_sizes.resize(pxs);
 }
@@ -45,7 +46,7 @@ void FastScanning::process_implementation(Mat &a, void* data)
 	m_labels.deallocate();
 	m_labels = Mat::zeros(a.rows, a.cols, CV_32SC1);
 	// we prepare memory for pessimistic case - every pixel is a region
-	int pxs = current_frame->rows*current_frame->cols;
+	int pxs = FrameGrabber::current_frame.rows*FrameGrabber::current_frame.cols;
 	m_means.clear(); m_sizes.clear(); m_merge_proxy.clear(); m_adj.clear();
 	m_means.assign(pxs, 0);
 	m_sizes.assign(pxs, 0);
