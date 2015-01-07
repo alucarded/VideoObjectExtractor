@@ -15,17 +15,25 @@
 
 class FrameGrabber {
 public:
-	FrameGrabber();
 	virtual ~FrameGrabber();
+
+	static FrameGrabber *instance();
 
 	bool initialize(int device);
 	bool initialize(const std::string& file);
 	bool read();
 
-	static cv::Mat current_frame;
-	static int frame_num;
+	inline cv::Mat getCurrentFrame() const { return m_current_frame; }
+	inline cv::Mat& getCurrentFrame() { return m_current_frame; }
+	inline int getFrameNum() const { return m_frame_num; }
+
 private:
+	FrameGrabber();
+	static FrameGrabber *m_instance;
+
 	cv::VideoCapture m_capture;
+	cv::Mat m_current_frame;
+	int m_frame_num;
 };
 
 #endif /* SRC_FRAMEGRABBER_HPP_ */

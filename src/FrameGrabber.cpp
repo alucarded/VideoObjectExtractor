@@ -9,15 +9,23 @@
 
 #include "FrameGrabber.hpp"
 
-cv::Mat FrameGrabber::current_frame;
-int FrameGrabber::frame_num = 0;
+FrameGrabber *FrameGrabber::m_instance = NULL;
 
-FrameGrabber::FrameGrabber() {
-	// m_capture = cv::VideoCapture();
+FrameGrabber::FrameGrabber() : m_frame_num(0)
+{
+
 }
 
-FrameGrabber::~FrameGrabber() {
+FrameGrabber::~FrameGrabber()
+{
 	m_capture.release();
+}
+
+FrameGrabber *FrameGrabber::instance()
+{
+	if (!m_instance)
+		m_instance = new FrameGrabber();
+	return m_instance;
 }
 
 bool FrameGrabber::initialize(int device)
@@ -44,11 +52,11 @@ bool FrameGrabber::initialize(const std::string& file)
 
 bool FrameGrabber::read()
 {
-	bool ret = m_capture.read(current_frame);
-	if (!ret)
-	{
+	bool ret = m_capture.read(m_current_frame);
+	if (!ret) {
 		std::cout << "Error: cannot read a frame" << std::endl;
 		return false;
 	}
+	m_frame_num++;
 	return true;
 }

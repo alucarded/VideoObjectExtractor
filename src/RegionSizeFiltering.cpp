@@ -152,7 +152,7 @@ void RegionSizeFiltering::process_implementation(Mat &a, void* data)
 			if (0 == tmp.at<uchar>(i, j))
 				a.at<Vec3b>(i, j) = Vec3b(0, 0, 0);
 		}*/
-	labels.copyTo(*reinterpret_cast<Mat*>(data));
+	// labels.copyTo(*reinterpret_cast<Mat*>(data));
 }
 
 int RegionSizeFiltering::unify_label(const int& l)

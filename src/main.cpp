@@ -14,11 +14,10 @@ using namespace cv;
 
 int main(int argc, char* argv[])
 {
-	FrameGrabber grabber;
+	FrameGrabber *grabber = FrameGrabber::instance();
 	Mat img;
 	bool go = true;
 	double t;
-	void *data = reinterpret_cast<void*>(new Mat);
 	std::string aname = "mog2";
 	// for file operations
 	std::string fn, fname;
@@ -30,8 +29,8 @@ int main(int argc, char* argv[])
 
 	// open a video stream for reading
 	// from device with id as in argument
-	if (!grabber.initialize(1))
-		if (!grabber.initialize(0))
+	if (!grabber->initialize(1))
+		if (!grabber->initialize(0))
 			return -1;
 
 	/*FrameGrabber::current_frame = std::make_shared<Mat>(cap.get(CAP_PROP_FRAME_WIDTH),
@@ -51,29 +50,28 @@ int main(int argc, char* argv[])
 	{
 		// usleep(30000);
 
-		if (!grabber.read())
+		if (!grabber->read())
 			break;
 
-		FrameGrabber::frame_num++;
-		FrameGrabber::current_frame.copyTo(img);
+		img = grabber->getCurrentFrame();
 
 		// processing
 		t = (double)getTickCount();
-		moe->process(img, data);
+		moe->process(img);
 		t = (double)getTickCount() - t;
 		t = t*1000./getTickFrequency();
 
 		cout << "execution time = " << t << " ms" << endl;
-		cout << FrameGrabber::frame_num << endl;
+		cout << grabber->getFrameNum() << endl;
 
-		imshow("input", FrameGrabber::current_frame);
+		imshow("input", grabber->getCurrentFrame());
 		imshow("output", img);
 
 		if (!Utility::actionSwitch(img, aname, static_cast<char>(waitKey(1))))
 			go = 0;
 
 		// test
-		if (FrameGrabber::frame_num == test_frame)
+		if (grabber->getFrameNum() == test_frame)
 			Utility::captureFrame(img, aname);
 	}
 	return 0;

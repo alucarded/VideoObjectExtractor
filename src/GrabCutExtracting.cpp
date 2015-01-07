@@ -22,6 +22,7 @@ GrabCutExtracting::~GrabCutExtracting()
 
 void GrabCutExtracting::process_implementation(Mat &a, void* data)
 {
+	const Mat& current_frame = FrameGrabber::instance()->getCurrentFrame();
 	Mat gc_fgd;
 	Rect dummy_rect;
 	Mat bmask;
@@ -29,22 +30,12 @@ void GrabCutExtracting::process_implementation(Mat &a, void* data)
 	Mat fgd_model;
 	Mat kernel = Mat::ones(m_kernel_size, m_kernel_size, CV_8UC1);
 	Mat gc_mask(a.rows, a.cols, CV_8UC1);
-	std::shared_ptr<ImageProcessor> morph_proc = std::make_shared<MorphologicalProcessing>();
-	std::shared_ptr<ImageProcessor> region_filtering = std::make_shared<RegionSizeFiltering>(5000, 5000);
-	Mat *labels = new Mat(a.rows, a.cols, CV_32SC1);
 	int fgd = 0, bgd = 0;
 	int i, j;
 
-	imshow("mog2", a);
-	// prepare mask
-	morph_proc->set_next_processor(region_filtering);
-	morph_proc->process(a, (void*)labels);
-
-	imshow("mask preparation", a);
-
 	// create grabcut mask
 	erode(a, gc_fgd, kernel);
-	imshow("fgd", gc_fgd);
+	imshow("Foreground", gc_fgd);
 	FOR_PIXELS(i, j, a)
 		if (BINARY_ONE == gc_fgd.at<uchar>(i, j)) {
 			gc_mask.at<uchar>(i, j) = GC_FGD;
@@ -59,16 +50,16 @@ void GrabCutExtracting::process_implementation(Mat &a, void* data)
 		}
 
 	if (bgd < 1000 || fgd < 1000) {
-		FrameGrabber::current_frame.copyTo(a);
+		current_frame.copyTo(a);
 		return;
 	}
 
 	// execute grabcut
-	grabCut(FrameGrabber::current_frame, gc_mask, dummy_rect, bgd_model, fgd_model, 1, GC_INIT_WITH_MASK);
+	grabCut(current_frame, gc_mask, dummy_rect, bgd_model, fgd_model, 1, GC_INIT_WITH_MASK);
 
 	// show cut image
 	get_bin_mask(gc_mask, bmask);
-	FrameGrabber::current_frame.copyTo(a, bmask);
+	current_frame.copyTo(a, bmask);
 	/*
 	for (i = 1; i < a.rows; i++)
 		for (j = 1; j < a.cols; j++) {
@@ -77,7 +68,6 @@ void GrabCutExtracting::process_implementation(Mat &a, void* data)
 			}
 		}*/
 	//gc_fgd.copyTo(a);
-	delete labels;
 }
 
 void GrabCutExtracting::get_bin_mask(const Mat& com_mask, Mat& bin_mask)

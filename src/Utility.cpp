@@ -42,13 +42,13 @@ bool Utility::captureFrame(const Mat& img, const std::string& aname)
 	if (stat(SCREENSHOTS_DIR, &st) == -1) {
 		mkdir(SCREENSHOTS_DIR, 0700);
 	}
-	fn = SCREENSHOTS_DIR + aname + "_" + std::to_string(FrameGrabber::frame_num) + ".jpg";
+	fn = SCREENSHOTS_DIR + aname + "_" + std::to_string(FrameGrabber::instance()->getFrameNum()) + ".jpg";
 	while (stat(fn.c_str(), &st) != -1) {
-		fn = SCREENSHOTS_DIR + aname + "_" + std::to_string(FrameGrabber::frame_num) + "_" + std::to_string(n) + ".jpg";
+		fn = SCREENSHOTS_DIR + aname + "_" + std::to_string(FrameGrabber::instance()->getFrameNum()) + "_" + std::to_string(n) + ".jpg";
 		n++;
 	}
 	imwrite(fn, img);
 	fn = SCREENSHOTS_DIR + aname + "_input.jpg";
-	ret = imwrite(fn, FrameGrabber::current_frame);
+	ret = imwrite(fn, FrameGrabber::instance()->getCurrentFrame());
 	return ret;
 }
