@@ -11,6 +11,10 @@
 #include "Common.hpp"
 #include "ImageProcessor.hpp"
 
+/*
+ * INPUT: raw moving are mask
+ * OUTPUT: moving area mask with filtered small regions
+ */
 class RegionSizeFiltering : public ImageProcessor {
 public:
 	RegionSizeFiltering(int min_white, int min_black);

@@ -7,18 +7,31 @@
 
 #include "MorphologicalProcessing.hpp"
 
-MorphologicalProcessing::MorphologicalProcessing() {
-	// TODO Auto-generated constructor stub
+MorphologicalProcessing::MorphologicalProcessing(Type type, int size)
+	: m_type(type), m_size(size)
+{
 
 }
 
 MorphologicalProcessing::~MorphologicalProcessing() {
-	// TODO Auto-generated destructor stub
+
 }
 
 void MorphologicalProcessing::process_implementation(Mat &a, void* data)
 {
-	Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
-	//morphologyEx(a, a, MORPH_CLOSE, kernel);
+	Mat kernel = getStructuringElement(MORPH_RECT, Size(m_size, m_size));
 	dilate(a, a, kernel);
+	switch (m_type) {
+	case DILATE:
+		dilate(a, a, kernel);
+		break;
+	case ERODE:
+		erode(a, a, kernel);
+		break;
+	case CLOSE:
+		morphologyEx(a, a, MORPH_CLOSE, kernel);
+		break;
+	default:
+		break;
+	}
 }

@@ -35,6 +35,8 @@ bool Utility::actionSwitch(const Mat& img, const std::string& aname, char key)
 
 bool Utility::captureFrame(const Mat& img, const std::string& aname)
 {
+	// TODO: make it platform independent or implement for different operating systems
+#ifdef __linux__
 	bool ret;
 	std::string fn;
 	struct stat st = {0};
@@ -51,4 +53,5 @@ bool Utility::captureFrame(const Mat& img, const std::string& aname)
 	fn = SCREENSHOTS_DIR + aname + "_input.jpg";
 	ret = imwrite(fn, FrameGrabber::instance()->getCurrentFrame());
 	return ret;
+#endif
 }

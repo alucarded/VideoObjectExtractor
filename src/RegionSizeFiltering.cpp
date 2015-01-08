@@ -2,7 +2,8 @@
  * RegionSizeFiltering.cpp
  *
  *  Created on: Nov 10, 2014
- *      Author: alucard
+ *      Author: Tomasz Posłuszny
+ *
  */
 
 #include "RegionSizeFiltering.hpp"
@@ -20,6 +21,11 @@ RegionSizeFiltering::~RegionSizeFiltering()
 
 void RegionSizeFiltering::process_implementation(Mat &a, void* data)
 {
+	// need more than one iteration due to "inception" effect:
+	// there is region inside region inside different region...
+	// ...while every region is small enough to be omitted
+	// heuristic approach
+	for (int inum = 1; inum <= 2; inum++) {
 	int i, j, lab, tl, ll, b;
 	uchar t, l, v;
 	// pixel labels, 0 label means no label (pixel doesn't belong to mask)
@@ -153,8 +159,11 @@ void RegionSizeFiltering::process_implementation(Mat &a, void* data)
 				a.at<Vec3b>(i, j) = Vec3b(0, 0, 0);
 		}*/
 	// labels.copyTo(*reinterpret_cast<Mat*>(data));
+	}
+	imshow("Region filtering", a);
 }
 
+// here magic happens: labels are updated after merging
 int RegionSizeFiltering::unify_label(const int& l)
 {
 	int ret = l;

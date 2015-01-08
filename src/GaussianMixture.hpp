@@ -74,7 +74,7 @@ public:
         nframes = 0;
         history = defaultHistory2;
         varThreshold = defaultVarThreshold2;
-        bShadowDetection = 1; // default no shadow detection
+        bShadowDetection = 0; // default no shadow detection
 
         nmixtures = defaultNMixtures2;
         backgroundRatio = defaultBackgroundRatio2;

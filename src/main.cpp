@@ -33,6 +33,7 @@ int main(int argc, char* argv[])
 		if (!grabber->initialize(0))
 			return -1;
 
+	// VideoWriter writer("video.mjpg", VideoWriter::fourcc('M', 'J', 'P', 'G'), 20.f, Size(640, 480));
 	/*FrameGrabber::current_frame = std::make_shared<Mat>(cap.get(CAP_PROP_FRAME_WIDTH),
 			cap.get(CAP_PROP_FRAME_HEIGHT),
 			cap.get(CAP_PROP_FORMAT));*/
@@ -42,7 +43,7 @@ int main(int argc, char* argv[])
 	moveWindow("input", 0, 0);
 	moveWindow("output", 800, 0);
 
-	// processing chain
+	// processing chain, here change between different available chains
 	std::shared_ptr<ProcessingChain> moe = std::make_shared<GrabCutMovingObjectExtracting>("input");
 
 	// main loop

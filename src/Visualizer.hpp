@@ -19,13 +19,16 @@ public:
 
 	template <typename Tl, typename Ta>
 	void visualize(const Mat& l, Mat& a);
+
+	// TODO:
+	template <typename T>
+	static void distribute_values_evenly(Mat &a, T max_input_val, T max_output_val);
 private:
 	template <typename T>
 	bool _is_border(const Mat& l, const int& x, const int& y);
 	Vec3b _label_to_color(const int& label);
 	template <typename T>
 	bool compare(const T& a, const T& b);
-
 	// int m_channels;
 };
 
