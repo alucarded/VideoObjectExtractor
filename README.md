@@ -9,5 +9,6 @@ Linux installation:
  - cmake ..
  - make
 
-2. Make sure you have camera connected and then run binary file.
+2. Execute prepare_camera.sh to configure camera with v4l2-ctl tool
 
+3. Make sure you have camera connected and then run the binary file.
