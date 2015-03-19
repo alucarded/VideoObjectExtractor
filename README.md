@@ -6,7 +6,7 @@ Pre-requisites:
 --------------
 - OpenCV library
 
-Linux installation:
+On Linux:
 --------------
 1. In main project directory, in command line type:
  - mkdir build
@@ -17,3 +17,8 @@ Linux installation:
 2. Execute prepare_camera.sh to configure camera with v4l2-ctl tool
 
 3. Make sure you have camera connected and then run the binary file.
+
+On Windows:
+--------------
+1. Prepare project/workspace with CMake for Windows http://www.cmake.org/download/
+2. Compile
