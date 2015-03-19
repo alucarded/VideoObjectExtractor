@@ -40,7 +40,7 @@
 //
 //M*/
 
-// taken from OpenCV library and modified
+// taken from OpenCV library and modified by Tomasz Posłuszny
 
 #include "FrameGrabber.hpp"
 #include "GaussianMixture.hpp"

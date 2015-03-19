@@ -2,7 +2,10 @@
  * Common.h
  *
  *  Created on: Dec 27, 2013
- *      Author: alucard
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
 
 #ifndef COMMON_H_

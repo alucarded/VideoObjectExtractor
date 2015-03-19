@@ -2,7 +2,10 @@
  * FastScanning.hpp
  *
  *  Created on: Oct 6, 2014
- *      Author: alucard
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
 
 #ifndef FASTSCANNING_HPP_

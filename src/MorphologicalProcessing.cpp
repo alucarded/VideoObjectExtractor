@@ -2,9 +2,11 @@
  * MorphologicalProcessing.cpp
  *
  *  Created on: Nov 10, 2014
- *      Author: alucard
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
-
 #include "MorphologicalProcessing.hpp"
 
 MorphologicalProcessing::MorphologicalProcessing(Type type, int size)

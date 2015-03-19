@@ -2,9 +2,11 @@
  * Utility.cpp
  *
  *  Created on: Nov 11, 2014
- *      Author: alucard
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
-
 #include "FrameGrabber.hpp"
 #include "Utility.hpp"
 

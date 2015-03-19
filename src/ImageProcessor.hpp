@@ -2,7 +2,10 @@
  * ImageProcessor.hpp
  *
  *  Created on: Sep 30, 2013
- *      Author: alucard
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
 
 #ifndef IMAGEPROCESSOR_HPP_

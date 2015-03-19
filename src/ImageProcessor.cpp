@@ -2,9 +2,11 @@
  * ImageProcessor.cpp
  *
  *  Created on: Sep 30, 2013
- *      Author: alucard
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
-
 #include <cassert>
 
 #include "ImageProcessor.hpp"

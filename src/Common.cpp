@@ -2,7 +2,10 @@
  * Common.cpp
  *
  *  Created on: Nov 2, 2014
- *      Author: alucard
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
 
 #include "Common.hpp"

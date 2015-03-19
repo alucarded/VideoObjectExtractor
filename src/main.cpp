@@ -2,7 +2,10 @@
  * mmd.cpp
  *
  *  Created on: Sep 30, 2013
- *      Author: alucard
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
 
 #include "FrameGrabber.hpp"
@@ -32,11 +35,6 @@ int main(int argc, char* argv[])
 	if (!grabber->initialize(1))
 		if (!grabber->initialize(0))
 			return -1;
-
-	// VideoWriter writer("video.mjpg", VideoWriter::fourcc('M', 'J', 'P', 'G'), 20.f, Size(640, 480));
-	/*FrameGrabber::current_frame = std::make_shared<Mat>(cap.get(CAP_PROP_FRAME_WIDTH),
-			cap.get(CAP_PROP_FRAME_HEIGHT),
-			cap.get(CAP_PROP_FORMAT));*/
 
 	namedWindow( "input", WINDOW_AUTOSIZE );
 	namedWindow( "output", WINDOW_AUTOSIZE );

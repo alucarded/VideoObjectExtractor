@@ -2,9 +2,11 @@
  * RegionSizeFiltering.hpp
  *
  *  Created on: Nov 10, 2014
- *      Author: alucard
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
-
 #ifndef REGIONSIZEFILTERING_HPP_
 #define REGIONSIZEFILTERING_HPP_
 

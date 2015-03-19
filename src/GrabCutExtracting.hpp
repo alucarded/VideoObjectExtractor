@@ -2,7 +2,10 @@
  * GrabCutExtracting.hpp
  *
  *  Created on: Nov 16, 2014
- *      Author: alucarded
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
 
 #ifndef SRC_GRABCUTEXTRACTING_HPP_

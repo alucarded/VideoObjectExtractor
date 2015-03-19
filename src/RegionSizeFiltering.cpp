@@ -4,6 +4,8 @@
  *  Created on: Nov 10, 2014
  *      Author: Tomasz Posłuszny
  *
+ *      Copyright. All rights reserved.
+ *
  */
 
 #include "RegionSizeFiltering.hpp"

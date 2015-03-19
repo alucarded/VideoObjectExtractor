@@ -40,6 +40,8 @@
 //
 //M*/
 
+// taken from OpenCV library and modified by Tomasz Posłuszny
+
 #ifndef GAUSSIANMIXTURE_HPP_
 #define GAUSSIANMIXTURE_HPP_
 

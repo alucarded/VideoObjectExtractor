@@ -2,7 +2,10 @@
  * FrameGrabber.cpp
  *
  *  Created on: Jan 7, 2015
- *      Author: alucarded
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
 
 #include <iostream>

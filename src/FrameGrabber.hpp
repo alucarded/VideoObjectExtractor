@@ -2,7 +2,10 @@
  * FrameGrabber.hpp
  *
  *  Created on: Jan 7, 2015
- *      Author: alucarded
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
 
 #ifndef SRC_FRAMEGRABBER_HPP_

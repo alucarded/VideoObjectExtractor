@@ -2,7 +2,10 @@
  * Visualizer.cpp
  *
  *  Created on: Oct 9, 2014
- *      Author: alucard
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
 
 #include "Visualizer.hpp"

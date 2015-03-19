@@ -2,7 +2,10 @@
  * Utility.hpp
  *
  *  Created on: Nov 11, 2014
- *      Author: alucard
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
 
 #ifndef UTILITY_HPP_

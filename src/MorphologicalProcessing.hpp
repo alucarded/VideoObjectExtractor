@@ -2,9 +2,11 @@
  * MorphologicalProcessing.hpp
  *
  *  Created on: Nov 10, 2014
- *      Author: alucard
+ *      Author: Tomasz Posłuszny
+ *
+ *      Copyright. All rights reserved.
+ *
  */
-
 #ifndef MORPHOLOGICALPROCESSING_HPP_
 #define MORPHOLOGICALPROCESSING_HPP_
 
