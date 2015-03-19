@@ -1,6 +1,9 @@
 # VideoObjectExtractor
 Automatic marking of silhouettes of moving objects in video sequences
 
+Pre-requisites:
+OpenCV library
+
 Linux installation:
 
 1. In main project directory, in command line type:
