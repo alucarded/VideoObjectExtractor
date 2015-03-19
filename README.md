@@ -22,3 +22,7 @@ On Windows:
 --------------
 1. Prepare project/workspace with CMake for Windows http://www.cmake.org/download/
 2. Compile
+
+In action:
+--------------
+https://drive.google.com/file/d/0B54bH06GzxIHS1dMMF9RLUVlbU0/view?usp=sharing
