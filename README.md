@@ -2,7 +2,8 @@
 Automatic marking of silhouettes of moving objects in video sequences
 
 Pre-requisites:
-OpenCV library
+
+- OpenCV library
 
 Linux installation:
 
