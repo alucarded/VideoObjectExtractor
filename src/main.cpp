@@ -17,7 +17,7 @@ using namespace cv;
 
 int main(int argc, char* argv[])
 {
-	FrameGrabber *grabber = FrameGrabber::instance();
+	std::shared_ptr<FrameGrabber> grabber = VideoFrameGrabber::instantiate(0);
 	Mat img;
 	bool go = true;
 	double t;
@@ -32,9 +32,9 @@ int main(int argc, char* argv[])
 
 	// open a video stream for reading
 	// from device with id as in argument
-	if (!grabber->initialize(1))
-		if (!grabber->initialize(0))
-			return -1;
+	//if (!grabber->initialize(1))
+	//	if (!grabber->initialize(0))
+	//		return -1;
 
 	namedWindow( "input", WINDOW_AUTOSIZE );
 	namedWindow( "output", WINDOW_AUTOSIZE );

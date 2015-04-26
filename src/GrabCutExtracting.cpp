@@ -82,13 +82,13 @@ void GrabCutExtracting::process_implementation(Mat &a, void* data)
 	// gc_mask = gc_mask + 1;
 	// applyColorMap(gc_mask, mvis, COLORMAP_JET);
 	imshow("GrabCut mask", mvis);
-	/*
+
 	for (i = 1; i < a.rows; i++)
 		for (j = 1; j < a.cols; j++) {
 			if (Vec3b(0, 0, 0) == a.at<Vec3b>(i, j)) {
 				a.at<Vec3b>(i, j) = Vec3b(255, 255, 255);
 			}
-		}*/
+		}
 	//gc_fgd.copyTo(a);
 }
 
