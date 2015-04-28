@@ -38,6 +38,8 @@ public:
 	* @return true on success, false on failure
 	*/
 	static bool captureFrame(const Mat& img, const std::string& aname);
+
+	static void test(const Mat& img, const std::string& reference);
 };
 
 #endif /* UTILITY_HPP_ */

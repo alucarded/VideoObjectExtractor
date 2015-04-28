@@ -14,31 +14,20 @@
 
 std::shared_ptr<FrameGrabber> FrameGrabber::m_instance = std::shared_ptr<FrameGrabber>(nullptr);
 
-FrameGrabber::FrameGrabber() : m_frame_num(0)
-{
-
-}
-
 FrameGrabber::~FrameGrabber()
 {
-
+	m_capture.release();
 }
 
 std::shared_ptr<FrameGrabber> FrameGrabber::instantiate(int device)
 {
-	m_instance = std::make_shared<VideoFrameGrabber>(device);
+	m_instance = std::make_shared<FrameGrabber>(device);
 	return m_instance;
 }
 
 std::shared_ptr<FrameGrabber> FrameGrabber::instantiate(const std::string& file)
 {
-	m_instance = std::make_shared<VideoFrameGrabber>(file);
-	return m_instance;
-}
-
-std::shared_ptr<FrameGrabber> FrameGrabber::instantiate(const std::string& path, const std::string& prefix, const std::string& suffix)
-{
-	m_instance = std::make_shared<ImageFrameGrabber>(path, prefix, suffix);
+	m_instance = std::make_shared<FrameGrabber>(file);
 	return m_instance;
 }
 
@@ -49,7 +38,7 @@ std::shared_ptr<FrameGrabber> FrameGrabber::instance()
 	return m_instance;
 }
 
-VideoFrameGrabber::VideoFrameGrabber(int device)
+FrameGrabber::FrameGrabber(int device) : m_frame_num(0)
 {
 	m_capture.open(device);
 	if (!m_capture.isOpened())
@@ -58,7 +47,7 @@ VideoFrameGrabber::VideoFrameGrabber(int device)
 	}
 }
 
-VideoFrameGrabber::VideoFrameGrabber(const std::string& file)
+FrameGrabber::FrameGrabber(const std::string& file) : m_frame_num(0)
 {
 	m_capture.open(file);
 	if (!m_capture.isOpened())
@@ -67,22 +56,7 @@ VideoFrameGrabber::VideoFrameGrabber(const std::string& file)
 	}
 }
 
-VideoFrameGrabber::~VideoFrameGrabber()
-{
-	m_capture.release();
-}
-
-ImageFrameGrabber::ImageFrameGrabber(const std::string& path, const std::string& prefix, const std::string& suffix)
-{
-
-}
-
-ImageFrameGrabber::~ImageFrameGrabber()
-{
-
-}
-
-bool VideoFrameGrabber::read()
+bool FrameGrabber::read()
 {
 	bool ret = m_capture.read(m_current_frame);
 	if (!ret) {

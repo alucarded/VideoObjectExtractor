@@ -28,6 +28,7 @@ private:
 	int unify_label(const int& l);
 	bool is_border(const Mat& m, const int& x, const int& y);
 	int get_neighbor(const Mat& m, const Mat& lab, const int& x, const int& y);
+	int get_neighbor(const Mat& lab, const int& x, const int& y);
 	bool already_neighbor(const Neighborhood_Graph& g, const int& a, const int& b);
 
 	int m_min_white;

@@ -13,7 +13,7 @@
 #include "MorphologicalProcessing.hpp"
 #include "RegionSizeFiltering.hpp"
 
-GrabCutExtracting::GrabCutExtracting() : m_kernel_size(15)
+GrabCutExtracting::GrabCutExtracting() : m_kernel_size(5)
 {
 
 }
@@ -77,19 +77,23 @@ void GrabCutExtracting::process_implementation(Mat &a, void* data)
 
 	// show cut out image (silhouette)
 	get_bin_mask(gc_mask, bmask);
-	current_frame.copyTo(a, bmask);
+	//current_frame.copyTo(a, bmask);
 
 	// gc_mask = gc_mask + 1;
 	// applyColorMap(gc_mask, mvis, COLORMAP_JET);
 	imshow("GrabCut mask", mvis);
-
+/*
 	for (i = 1; i < a.rows; i++)
 		for (j = 1; j < a.cols; j++) {
 			if (Vec3b(0, 0, 0) == a.at<Vec3b>(i, j)) {
 				a.at<Vec3b>(i, j) = Vec3b(255, 255, 255);
 			}
-		}
-	//gc_fgd.copyTo(a);
+		}*/
+	FOR_PIXELS(i,j,bmask) {
+		if (bmask.at<uchar>(i, j) > 0)
+			bmask.at<uchar>(i, j) = 255;
+	}
+	bmask.copyTo(a);
 }
 
 void GrabCutExtracting::get_bin_mask(const Mat& com_mask, Mat& bin_mask)
@@ -98,7 +102,6 @@ void GrabCutExtracting::get_bin_mask(const Mat& com_mask, Mat& bin_mask)
         CV_Error( Error::StsBadArg, "com_mask is empty or has incorrect type (not CV_8UC1)" );
     if( bin_mask.empty() || bin_mask.rows!=com_mask.rows || bin_mask.cols!=com_mask.cols )
         bin_mask.create( com_mask.size(), CV_8UC1 );
-    // every pixel with label other than GC_BGD becomes binary one (belongs to mask)
-    // ...because GC_BGD = 0
+    // GC_FGD and GC_PR_FGD become 1, GC_BGD and GC_PR_BGD become 0
     bin_mask = com_mask & 1;
 }

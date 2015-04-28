@@ -57,3 +57,33 @@ bool Utility::captureFrame(const Mat& img, const std::string& aname)
 	return ret;
 #endif
 }
+
+void Utility::test(const Mat& img, const std::string& reference)
+{
+	Mat ref;
+	ref = imread(reference, IMREAD_GRAYSCALE);
+	int tp = 0, tn = 0, fp = 0, fn = 0;
+	float precision, recall;
+	FOR_PIXELS(i, j, img) {
+		const uchar &a = img.at<uchar>(i, j);
+		const uchar &b = ref.at<uchar>(i, j);
+		//std::cout << (int)a << " " << (int)b << std::endl;
+		if (a > 0) {
+			if (b > 0)
+				tp++;
+			else
+				fp++;
+		} else {
+			if (b > 0)
+				fn++;
+			else
+				tn++;
+		}
+	}
+	recall = (float)tp / (float)(tp + fn);
+	precision = (float)fp / (float)(fp + tn);
+	std::cout << "TP: " << tp << ", TN: " << tn << ", FP:" << fp << ", FN: " << fn << std::endl;
+	std::cout << "Recall: " << recall << std::endl;
+	std::cout << "Precision: " << precision << std::endl;
+
+}

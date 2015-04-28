@@ -17,18 +17,19 @@ using namespace cv;
 
 int main(int argc, char* argv[])
 {
-	std::shared_ptr<FrameGrabber> grabber = VideoFrameGrabber::instantiate(0);
+	// hardcoded parameters
+	// input file
+	String file = "/home/alucarded/Videos/background_subtraction_test_dataset/Camouflage/b%05d.bmp";
+	// frame number to save results
+	int test_frame = 1850;
+	std::string aname = "mog2";
+	std::string reference = "/home/alucarded/Videos/background_subtraction_test_dataset/Camouflage/hand_segmented_01850.BMP";
+	std::shared_ptr<FrameGrabber> grabber = FrameGrabber::instantiate(file);
 	Mat img;
 	bool go = true;
 	double t;
-	std::string aname = "mog2";
 	// for file operations
 	std::string fn, fname;
-	// hardcoded parameters
-	// input file
-	String file = "/home/alucarded/my_video-1.mkv";
-	// frame number to save results
-	int test_frame = 250;
 
 	// open a video stream for reading
 	// from device with id as in argument
@@ -53,13 +54,13 @@ int main(int argc, char* argv[])
 			break;
 
 		img = grabber->getCurrentFrame();
-
+		if (grabber->getFrameNum() >= 0) {
 		// processing
 		t = (double)getTickCount();
 		moe->process(img);
 		t = (double)getTickCount() - t;
 		t = t*1000./getTickFrequency();
-
+		}
 		cout << "execution time = " << t << " ms" << endl;
 		cout << grabber->getFrameNum() << endl;
 
@@ -70,8 +71,12 @@ int main(int argc, char* argv[])
 			go = 0;
 
 		// test
-		if (grabber->getFrameNum() == test_frame)
+		if (grabber->getFrameNum() == test_frame) {
 			Utility::captureFrame(img, aname);
+			Utility::test(img, reference);
+			sleep(100);
+			break;
+		}
 	}
 	return 0;
 }

@@ -49,8 +49,8 @@
 #include "ImageProcessor.hpp"
 
 // default parameters of gaussian background detection algorithm
-static const int defaultHistory2 = 50; // Learning rate; alpha = 1/defaultHistory2
-static const float defaultVarThreshold2 = 4.0f*4.0f;
+static const int defaultHistory2 = 200; // Learning rate; alpha = 1/defaultHistory2
+static const float defaultVarThreshold2 = 4.0f*4.0f; // threshold to determine belonging to bg model
 static const int defaultNMixtures2 = 5; // maximal number of Gaussians in mixture
 static const float defaultBackgroundRatio2 = 0.9f; // threshold sum of weights for background test
 static const float defaultVarThresholdGen2 = 3.0f*3.0f;
@@ -89,7 +89,7 @@ public:
         nShadowDetection = defaultnShadowDetection2;
         fTau = defaultfTau;
 
-        m_final_lr = 0.0f;
+        m_final_lr = 0.0005f;
 
         //opencl_ON = true;
     }

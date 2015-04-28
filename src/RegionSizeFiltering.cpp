@@ -30,9 +30,9 @@ void RegionSizeFiltering::process_implementation(Mat &a, void* data)
 	for (int inum = 1; inum <= 2; inum++) {
 	int i, j, lab, tl, ll, b;
 	uchar t, l, v;
-	// pixel labels, 0 label means no label (pixel doesn't belong to mask)
+	// pixel labels, 0 is initial value for all pixels
 	Mat labels = Mat::zeros(a.rows, a.cols, CV_32SC1);
-	Mat tmp; a.copyTo(tmp);
+	Mat tmp; a.copyTo(tmp); // save unchanged input binary image
 
 	m_merge_proxy.assign(a.rows*a.cols, -1);
 	m_sizes.assign(a.rows*a.cols, 0);
@@ -84,14 +84,17 @@ void RegionSizeFiltering::process_implementation(Mat &a, void* data)
 			}
 		}
 
-	// TODO: should create region neighborhood graph to do it properly
+	// nodes represent labeled regions and edges are between neighboring regions
 	Neighborhood_Graph ng(lab+1);
+	// binary value assigned to a region
 	std::vector<bool> rv(lab+1); // white or black
+
+	//create neighborhood graph and assign values to labels
 	for (i = 0; i < a.rows; i++)
 		for (j = 0; j < a.cols; j++) {
-			int &l = labels.at<int>(i, j);
-			l = unify_label(labels.at<int>(i, j));
-			if (BINARY_ONE == tmp.at<uchar>(i, j))
+			int &l = labels.at<int>(i, j); // get the pixel's label
+			l = unify_label(l); // check and memorize the primary label (the label of region with which the region was merged)
+			if (BINARY_ONE == tmp.at<uchar>(i, j)) //
 				rv[l] = 1;
 			else
 				rv[l] = 0;
@@ -99,7 +102,36 @@ void RegionSizeFiltering::process_implementation(Mat &a, void* data)
 			if (b && !already_neighbor(ng, l, b))
 				ng[l].push_back(b);
 		}
-	for (i = 0; i <= lab; i++) {
+
+	// TODO: check dfs or bfs
+	/*
+	std::vector<bool> visited(lab+1, false);
+	std::queue<int> q;
+	int c;
+	q.push(unify_label(labels.at<int>(0, 0)));
+	while (!q.empty()) {
+		c = q.front();
+		q.pop();
+		cout << "0";
+			for (i = 0; i < ng[c].size(); i++) {
+				const int& k = unify_label(ng[c][i]);
+				//cout << "1";
+				if (!visited[k]) {
+					//cout << "2";
+					q.push(k);
+					if (rv[c] && m_sizes[k] < m_min_black) {
+						//cout << "3";
+						m_sizes[i] += m_sizes[k];
+						m_sizes[k] = 0;
+						m_merge_proxy[k] = i;
+					}
+				}
+			}
+		visited[c] = true;
+	}
+*/
+	// remove small black regions
+	for (i = 1; i <= lab; i++) {
 		if (rv[i]) {
 			for (j = 0; j < ng[i].size(); j++) {
 				const int& k = ng[i][j];
@@ -111,6 +143,8 @@ void RegionSizeFiltering::process_implementation(Mat &a, void* data)
 			}
 		}
 	}
+
+	// remove small white regions
 	for (i = 0; i < a.rows; i++)
 		for (j = 0; j < a.cols; j++) {
 			int &l = labels.at<int>(i, j);
@@ -120,6 +154,7 @@ void RegionSizeFiltering::process_implementation(Mat &a, void* data)
 			else if (rv[l])
 				a.at<uchar>(i, j) = BINARY_ONE;
 		}
+
 	/*
 	for (i = 0; i < a.rows; i++)
 		for (j = 0; j < a.cols; j++) {
