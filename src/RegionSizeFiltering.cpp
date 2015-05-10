@@ -132,7 +132,7 @@ void RegionSizeFiltering::process_implementation(Mat &a, void* data)
 */
 	// remove small black regions
 	for (i = 1; i <= lab; i++) {
-		if (rv[i]) {
+		if (rv[i] && m_sizes[i] > m_min_white) {
 			for (j = 0; j < ng[i].size(); j++) {
 				const int& k = ng[i][j];
 				if (m_sizes[k] < m_min_black) {

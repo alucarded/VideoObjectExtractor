@@ -19,10 +19,10 @@ int main(int argc, char* argv[])
 {
 	// hardcoded parameters
 	// input file
-	String file = "/home/alucarded/Videos/background_subtraction_test_dataset/Camouflage/b%05d.bmp";
+	String file = "/home/alucarded/Videos/changedetection.net/dataset/dynamicBackground/overpass/input/in%06d.jpg";
 	// frame number to save results
 	int test_frame = 1850;
-	std::string aname = "mog2";
+	std::string path = "/home/alucarded/Videos/changedetection.net/results/dynamicBackground/overpass/";
 	std::string reference = "/home/alucarded/Videos/background_subtraction_test_dataset/Camouflage/hand_segmented_01850.BMP";
 	std::shared_ptr<FrameGrabber> grabber = FrameGrabber::instantiate(file);
 	Mat img;
@@ -67,16 +67,16 @@ int main(int argc, char* argv[])
 		imshow("input", grabber->getCurrentFrame());
 		imshow("output", img);
 
-		if (!Utility::actionSwitch(img, aname, static_cast<char>(waitKey(1))))
+		if (!Utility::actionSwitch(img, path, static_cast<char>(waitKey(1))))
 			go = 0;
 
 		// test
-		if (grabber->getFrameNum() == test_frame) {
-			Utility::captureFrame(img, aname);
-			Utility::test(img, reference);
-			sleep(100);
-			break;
-		}
+		//if (grabber->getFrameNum() >= 470 && grabber->getFrameNum() <= 1700) {
+			Utility::captureFrame(img, path);
+			//Utility::test(img, reference);
+			//sleep(100);
+			//break;
+		//}
 	}
 	return 0;
 }

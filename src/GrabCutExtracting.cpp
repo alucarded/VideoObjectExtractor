@@ -13,7 +13,7 @@
 #include "MorphologicalProcessing.hpp"
 #include "RegionSizeFiltering.hpp"
 
-GrabCutExtracting::GrabCutExtracting() : m_kernel_size(5)
+GrabCutExtracting::GrabCutExtracting() : m_kernel_size(9)
 {
 
 }
@@ -64,8 +64,9 @@ void GrabCutExtracting::process_implementation(Mat &a, void* data)
 		}
 
 	// if foreground or background mask is very small, then return original image
-	if (bgd < 1000 || fgd < 1000) {
-		current_frame.copyTo(a);
+	if (bgd < 1000 || fgd < 1000 || FrameGrabber::instance()->getFrameNum() < 570) {
+		//current_frame.copyTo(a);
+		a = Mat::zeros(a.rows, a.cols, CV_8UC1);
 		return;
 	}
 

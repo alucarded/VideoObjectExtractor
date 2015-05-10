@@ -76,7 +76,7 @@ public:
         nframes = 0;
         history = defaultHistory2;
         varThreshold = defaultVarThreshold2;
-        bShadowDetection = 0; // default no shadow detection
+        bShadowDetection = 1; // default no shadow detection
 
         nmixtures = defaultNMixtures2;
         backgroundRatio = defaultBackgroundRatio2;
@@ -89,7 +89,7 @@ public:
         nShadowDetection = defaultnShadowDetection2;
         fTau = defaultfTau;
 
-        m_final_lr = 0.0005f;
+        m_final_lr = 0.002f; // 0.009f
 
         //opencl_ON = true;
     }
