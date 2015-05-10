@@ -66,6 +66,9 @@ enum Label
 #define FOR_PIXELS(i, j, a) for (int i = 0; i < a.rows; i++) \
                            for (int j = 0; j < a.cols; j++)
 
+// some hardcoded parameters for quick changes and testing
+#define GC_KERNEL_SIZE 9
+
 typedef std::pair<int, int> pii;
 
 namespace voe {

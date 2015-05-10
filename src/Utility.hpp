@@ -39,6 +39,11 @@ public:
 	*/
 	static bool captureFrame(const Mat& img, const std::string& path);
 
+	/**
+	* Compare result to ground truth. Extract statistical data.
+	* @param result image.
+	* @param path to ground truth image.
+	*/
 	static void test(const Mat& img, const std::string& reference);
 };
 

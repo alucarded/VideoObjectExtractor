@@ -39,10 +39,10 @@ void GrabCutExtracting::process_implementation(Mat &a, void* data)
 	// TODO: think more how to do it to get best results
 	erode(a, gc_fgd, kernel);
 	// everything beyond eroded mask is assumed to be background
-	//imshow("Eroded mask", gc_fgd);
+	// imshow("Eroded mask", gc_fgd);
 	dilate(a, a, kernel);
 	// everything inside dilated mask is assumed to be foreground
-	//imshow("Dilated mask", a);
+	// imshow("Dilated mask", a);
 
 	// grabcut input mask visualization
 	Mat mvis(a.rows, a.cols, CV_8UC1);
@@ -64,21 +64,18 @@ void GrabCutExtracting::process_implementation(Mat &a, void* data)
 		}
 
 	// if foreground or background mask is very small, then return original image
-	if (bgd < 1000 || fgd < 1000 || FrameGrabber::instance()->getFrameNum() < 570) {
+	if (bgd < 1000 || fgd < 1000) {
 		//current_frame.copyTo(a);
 		a = Mat::zeros(a.rows, a.cols, CV_8UC1);
 		return;
 	}
-
-	// conditional fill
-	//conditionalFill
 
 	// execute grabcut
 	grabCut(current_frame, gc_mask, dummy_rect, bgd_model, fgd_model, 1, GC_INIT_WITH_MASK);
 
 	// show cut out image (silhouette)
 	get_bin_mask(gc_mask, bmask);
-	//current_frame.copyTo(a, bmask);
+	// current_frame.copyTo(a, bmask);
 
 	// gc_mask = gc_mask + 1;
 	// applyColorMap(gc_mask, mvis, COLORMAP_JET);
@@ -90,10 +87,13 @@ void GrabCutExtracting::process_implementation(Mat &a, void* data)
 				a.at<Vec3b>(i, j) = Vec3b(255, 255, 255);
 			}
 		}*/
+
+	// make foreground pixels white
 	FOR_PIXELS(i,j,bmask) {
 		if (bmask.at<uchar>(i, j) > 0)
 			bmask.at<uchar>(i, j) = 255;
 	}
+	// result: foreground binary mask
 	bmask.copyTo(a);
 }
 

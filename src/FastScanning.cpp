@@ -16,7 +16,7 @@
 typedef Vec<int, 1> Vec1d;
 
 FastScanning::FastScanning(double threshold, int min_size) :
-	m_threshold(threshold), m_min_size(min_size), m_max_label(640*480)
+	m_threshold(threshold), m_min_size(min_size), m_max_label(0)
 {
 
 }
@@ -47,22 +47,30 @@ void FastScanning::process_implementation(Mat &a, void* data)
 	int i, j, l, t, v, max_label;
 	Vec3d val, dvala, dvalb;
 	double dista, distb;
-	// labels initialization, 0-label means no label assignment
+
+	// clear data
 	m_labels.deallocate();
+	m_means.clear();
+	m_sizes.clear();
+	m_merge_proxy.clear();
+	m_adj.clear();
+
+	// initialize
+	// labels initialization, 0-label means no label assignment
 	m_labels = Mat::zeros(a.rows, a.cols, CV_32SC1);
 	// we prepare memory for pessimistic case - every pixel is a region
 	int pxs = FrameGrabber::instance()->getCurrentFrame().rows
 			*FrameGrabber::instance()->getCurrentFrame().cols;
-	m_means.clear(); m_sizes.clear(); m_merge_proxy.clear(); m_adj.clear();
 	m_means.assign(pxs, 0);
 	m_sizes.assign(pxs, 0);
 	m_merge_proxy.assign(pxs, -1);
 	m_adj.assign(pxs, set<int>());
-
 	l = 0;
 	m_labels.at<int>(0, 0) = l;
 	m_means[0] = static_cast<Vec3d>(a.at<Vec3b>(0, 0));
 	m_sizes[0] = 1;
+
+	// fast scanning
 	for (j = 1; j < a.cols; j++) { // i = 0
 		val = static_cast<Vec3d>(a.at<Vec3b>(0, j));
 		dvala = val - m_means[l];
@@ -125,7 +133,8 @@ void FastScanning::process_implementation(Mat &a, void* data)
 			}
 
 		}
-	m_max_label = l;
+	m_max_label = l; // keep maximum label id
+
 	// update regions' labels, create neighborhood graph
 	for (i = 0; i < a.rows; i++) {
 		m_labels.at<int>(i, 0) = unify_label(m_labels.at<int>(i, 0));
