@@ -6,7 +6,7 @@ Pre-requisites:
 --------------
 - OpenCV library
 
-On Linux:
+On Linux (tested on Ubuntu 14.04):
 --------------
 1. In main project directory, in command line type:
  - mkdir build
