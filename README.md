@@ -26,3 +26,9 @@ On Windows:
 In action:
 --------------
 https://drive.google.com/file/d/0B54bH06GzxIHS1dMMF9RLUVlbU0/view?usp=sharing
+
+Related paper:
+--------------
+Posłuszny T., Putz B. (2016) An Improved Extraction Process of Moving Objects’ Silhouettes in Video Sequences. In: Jabłoński R., Brezina T. (eds) Advanced Mechatronics Solutions. Advances in Intelligent Systems and Computing, vol 393. Springer, Cham
+
+https://link.springer.com/chapter/10.1007/978-3-319-23923-1_9
