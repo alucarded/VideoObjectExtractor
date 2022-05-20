@@ -25,7 +25,7 @@ On Windows:
 
 In action:
 --------------
-https://drive.google.com/file/d/0B54bH06GzxIHS1dMMF9RLUVlbU0/view?usp=sharing
+[System presentation with difficult background](https://drive.google.com/file/d/0B54bH06GzxIHS1dMMF9RLUVlbU0/view?usp=sharing&resourcekey=0-Oa7tO1UGMNRzpbJorj0Z5w)
 
 Related paper:
 --------------
